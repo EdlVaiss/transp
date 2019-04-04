@@ -14,8 +14,8 @@ public class CarService extends AbstractService implements ICarService<CarDTO> {
 
 	@Transactional
 	@Override
-	public boolean save(CarDTO item) {
-		return carDAO.create(item.toModel());
+	public void save(CarDTO item) {
+		carDAO.create(item.toModel());
 	}
 
 	@Transactional

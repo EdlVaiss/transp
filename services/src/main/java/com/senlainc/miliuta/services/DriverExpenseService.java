@@ -14,8 +14,8 @@ public class DriverExpenseService extends AbstractService implements IDriverExpe
 
 	@Transactional
 	@Override
-	public boolean save(DriverExpenseDTO item) {
-		return driverExpenseDAO.create(item.toModel());
+	public void save(DriverExpenseDTO item) {
+		driverExpenseDAO.create(item.toModel());
 	}
 
 	@Transactional

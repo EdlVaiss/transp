@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.senlainc.miliuta.dao.api.GenericDAO;
 
 public abstract class AbstractDAO<T> implements GenericDAO<T> {
-	
+
 	@PersistenceContext
 	protected EntityManager entityManager;
 
@@ -22,13 +22,8 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
 	}
 
 	@Override
-	public boolean create(T item) {
-		try {
-			entityManager.persist(item);
-			return true;
-		} catch (Throwable e) {
-			return false;
-		}
+	public void create(T item) {
+		entityManager.persist(item);
 	}
 
 	@Override

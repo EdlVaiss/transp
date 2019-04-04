@@ -14,8 +14,8 @@ public class DriverService extends AbstractService implements IDriverService<Dri
 
 	@Transactional
 	@Override
-	public boolean save(DriverDTO item) {
-		return driverDAO.create(item.toModel());
+	public void save(DriverDTO item) {
+		driverDAO.create(item.toModel());
 	}
 
 	@Transactional

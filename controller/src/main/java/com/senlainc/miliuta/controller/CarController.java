@@ -41,7 +41,12 @@ public class CarController {
 
 	@PostMapping
 	public boolean saveCar(@RequestBody CarDTO car) {
-		return carService.save(car);
+		try {
+			carService.save(car);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@DeleteMapping("/{id}")

@@ -52,8 +52,14 @@ public class CarExpenseController {
 
 	@PostMapping
 	public boolean saveCarExpense(@RequestBody CarExpenseDTO CarExpenseDTO) {
-		logger.debug("Trying to save item...");
-		return carExpenseService.save(CarExpenseDTO);
+		try {
+			logger.debug("Trying to save item...");
+			carExpenseService.save(CarExpenseDTO);
+			return true;
+		} catch (Exception e) {
+			logger.info("Failed to save new item");
+			return false;
+		}
 	}
 
 	@DeleteMapping("/{id}")

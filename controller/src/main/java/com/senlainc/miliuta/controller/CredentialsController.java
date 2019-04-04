@@ -41,8 +41,12 @@ public class CredentialsController {
 
 	@PostMapping
 	public boolean saveCredentials(@RequestBody CredentialsDTO creds) {
-		System.out.println(creds);
-		return credentialsService.save(creds);
+		try {
+			credentialsService.save(creds);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@DeleteMapping("/{id}")

@@ -41,7 +41,12 @@ public class DriverExpenseTypeController {
 
 	@PostMapping
 	public boolean saveDriverExpenseType(@RequestBody DriverExpenseTypeDTO DriverExpenseTypeDTO) {
-		return driverExpenseTypeService.save(DriverExpenseTypeDTO);
+		try {
+			driverExpenseTypeService.save(DriverExpenseTypeDTO);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@DeleteMapping("/{id}")

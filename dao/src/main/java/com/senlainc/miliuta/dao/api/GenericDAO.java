@@ -3,7 +3,7 @@ package com.senlainc.miliuta.dao.api;
 import java.util.List;
 
 public interface GenericDAO<T> {
-	boolean create(T item);
+	void create(T item);
 
 	List<T> readAll();
 	

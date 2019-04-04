@@ -24,10 +24,10 @@ public class DriverController {
 	private IDriverService<DriverDTO> driverService;
 
 	@GetMapping
-	public List<DriverDTO> getDrivers(){
+	public List<DriverDTO> getDrivers() {
 		return driverService.getAll();
 	}
-	
+
 	@GetMapping("/{id}")
 	public DriverDTO getDriver(@PathVariable Integer id) throws NoSuchItemException {
 		DriverDTO driverDTO = null;
@@ -41,7 +41,12 @@ public class DriverController {
 
 	@PostMapping
 	public boolean saveDriver(@RequestBody DriverDTO DriverDTO) {
-		return driverService.save(DriverDTO);
+		try {
+			driverService.save(DriverDTO);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@DeleteMapping("/{id}")

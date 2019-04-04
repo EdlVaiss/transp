@@ -3,7 +3,7 @@ package com.senlainc.miliuta.services.api;
 import java.util.List;
 
 public interface IService<T> {
-	boolean save(T item);
+	void save(T item);
 
 	List<T> getAll();
 	

@@ -41,7 +41,12 @@ public class CarExpenseTypeController {
 
 	@PostMapping
 	public boolean saveCarExpenseType(@RequestBody CarExpenseTypeDTO CarExpenseTypeDTO) {
-		return carExpenseTypeService.save(CarExpenseTypeDTO);
+		try {
+			carExpenseTypeService.save(CarExpenseTypeDTO);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@DeleteMapping("/{id}")

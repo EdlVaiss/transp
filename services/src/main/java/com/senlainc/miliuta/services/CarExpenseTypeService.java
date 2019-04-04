@@ -14,8 +14,8 @@ public class CarExpenseTypeService extends AbstractService implements ICarExpens
 
 	@Transactional
 	@Override
-	public boolean save(CarExpenseTypeDTO item) {
-		return carExpenseTypeDAO.create(item.toModel());
+	public void save(CarExpenseTypeDTO item) {
+		carExpenseTypeDAO.create(item.toModel());
 	}
 
 	@Transactional
