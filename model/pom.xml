@@ -10,4 +10,21 @@
 	<groupId>Model</groupId>
 	<artifactId>model</artifactId>
 
+	<dependencies>
+		<!-- Hibernate Core -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.2.6.Final</version>
+		</dependency>
+
+		<!-- Metamodel -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>5.4.1.Final</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
 </project>
