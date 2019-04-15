@@ -1,5 +1,7 @@
 package com.senlainc.miliuta.controller;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Tuple;
+import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -24,7 +27,7 @@ import com.senlainc.miliuta.services.api.IDriverService;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NoSuchAlgorithmException {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext("control-servlet.xml");
 		
 		CredentialsController credsController = (CredentialsController) context.getBean("credentialsController");
@@ -45,6 +48,16 @@ public class Main {
 		CarExpenseController carExpenseController = (CarExpenseController) context.getBean("carExpenseController");
 		CarExpenseDAO cexpDAO = (CarExpenseDAO) context.getBean("carExpenseDAO");
 
+		
+		String password = "pass";
+        
+	    MessageDigest md = MessageDigest.getInstance("MD5");
+	    md.update(password.getBytes());
+	    byte[] digest = md.digest();
+	    String myHash = DatatypeConverter
+	      .printHexBinary(digest).toUpperCase();
+		System.out.println(myHash);
+	    
 		/*
 		try {
 			carController.getCar(1);
@@ -58,8 +71,8 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		CarExpenseDTO c=new CarExpenseDTO();
-			System.out.println( carExpenseController.deleteCarExpense(10));
+		//CarExpenseDTO c=new CarExpenseDTO();
+		//	System.out.println( carExpenseController.deleteCarExpense(10));
 	
 		
 		/*ReportPrefs rp = new ReportPrefs();
