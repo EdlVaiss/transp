@@ -13,6 +13,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.senlainc.miliuta.controller.exceptions.NoSuchItemException;
 import com.senlainc.miliuta.dao.*;
@@ -48,6 +49,8 @@ public class Main {
 		CarExpenseController carExpenseController = (CarExpenseController) context.getBean("carExpenseController");
 		CarExpenseDAO cexpDAO = (CarExpenseDAO) context.getBean("carExpenseDAO");
 
+		BCryptPasswordEncoder enc = (BCryptPasswordEncoder)context.getBean("bcryptEncoder");
+		System.out.println(enc.encode("pass"));
 		
 		String password = "pass";
         
