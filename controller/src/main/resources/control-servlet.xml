@@ -30,7 +30,9 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	 -->
-	
+	<bean name="bcryptEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+		
 	<bean name="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<!-- Connection settings -->
