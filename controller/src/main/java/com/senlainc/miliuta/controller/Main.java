@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Tuple;
 import javax.xml.bind.DatatypeConverter;
 
@@ -20,17 +22,22 @@ import com.senlainc.miliuta.dao.*;
 import com.senlainc.miliuta.dto.*;
 
 import com.senlainc.miliuta.model.*;
+import com.senlainc.miliuta.model.creds.Authority;
+import com.senlainc.miliuta.model.creds.User;
 import com.senlainc.miliuta.services.AbstractService;
 import com.senlainc.miliuta.services.CarService;
 import com.senlainc.miliuta.services.DriverService;
+import com.senlainc.miliuta.services.UserService;
+import com.senlainc.miliuta.services.api.IAuthorityService;
 import com.senlainc.miliuta.services.api.ICarService;
 import com.senlainc.miliuta.services.api.IDriverService;
+import com.senlainc.miliuta.services.api.IUserService;
 
 public class Main {
 
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext("control-servlet.xml");
-		
+
 		CredentialsController credsController = (CredentialsController) context.getBean("credentialsController");
 		DriverExpenseTypeController detController = (DriverExpenseTypeController) context
 				.getBean("driverExpenseTypeController");
@@ -48,58 +55,70 @@ public class Main {
 
 		CarExpenseController carExpenseController = (CarExpenseController) context.getBean("carExpenseController");
 		CarExpenseDAO cexpDAO = (CarExpenseDAO) context.getBean("carExpenseDAO");
+		IUserService<User> userService = (IUserService<User>) context.getBean("userService");
+		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+		IAuthorityService<Authority> authService = (IAuthorityService<Authority>) context.getBean("authorityService");
 
-		BCryptPasswordEncoder enc = (BCryptPasswordEncoder)context.getBean("bcryptEncoder");
-		System.out.println(enc.encode("pass"));
-		
-		String password = "pass";
-        
-	    MessageDigest md = MessageDigest.getInstance("MD5");
-	    md.update(password.getBytes());
-	    byte[] digest = md.digest();
-	    String myHash = DatatypeConverter
-	      .printHexBinary(digest).toUpperCase();
-		System.out.println(myHash);
-	    
+		//Authority auth = new Authority();
+		//auth.setId(1);
+		//auth.setName("ROLE_ADMIN");
+		authService.deleteById(10);
+		/*Authority auth =authService.getById(8);
+		Authority auth1 =authService.getById(12);
+		Authority auth2 =authService.getById(10);
+		//System.out.println(auth.getId()+":"+auth.getName());
+		//authService.save(auth);
+		Set<Authority> authSet = new HashSet<>();
+		authSet.add(auth);
+		authSet.add(auth1);
+		authSet.add(auth2);
+
+		/*User user = new User();
+		user.setUserName("user4");
+		user.setPassword("passw");
+		user.setEnabled(true);*/
+		/*User user =userService.getById(16);
+		user.setAuthorities(authSet);*/
+
+		//userService.save(user);
+		//userService.update(user);
+		//userService.deleteById(21);
+
+		// BCryptPasswordEncoder enc = (BCryptPasswordEncoder)
+		// context.getBean("bcryptEncoder");
+		// System.out.println(enc.encode("pass"));
+
 		/*
-		try {
-			carController.getCar(1);
-		} catch (NoSuchItemException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			driverController.getDriver(4);
-		} catch (NoSuchItemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		//CarExpenseDTO c=new CarExpenseDTO();
-		//	System.out.println( carExpenseController.deleteCarExpense(10));
-	
-		
-		/*ReportPrefs rp = new ReportPrefs();
-		List<String> list=new ArrayList<>();
-				list.add("Driver");
-				list.add("Car");
-		rp.setEntities(list);
-		System.out.println(rp.getEntities());*/
-		
-		/*List<Object[]> list = repDAO.getData();
-		for (Object[] tuple : list) {
-			System.out.println(String.format("car: %d, driver: %d", ( ((Car)tuple[0]).getId(),
-					( tuple.get(1, Driver.class)).getId()));
-			
-			System.out.println(String.format("%s,  %d", tuple.get(0), tuple.get(1)));
-		}*/
-		
+		 * try { carController.getCar(1); } catch (NoSuchItemException e1) { // TODO
+		 * Auto-generated catch block e1.printStackTrace(); } try {
+		 * driverController.getDriver(4); } catch (NoSuchItemException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 */
+		// CarExpenseDTO c=new CarExpenseDTO();
+		// System.out.println( carExpenseController.deleteCarExpense(10));
+
 		/*
-		List<Object[]> list1 = carExpenseController.getAll();
-		for (Object[] objects : list1) {
-			System.out.println(String.format("carExpID:%d, car: %s, expenseType: %s", objects.getId(), 
-					objects.getCar().getModel(),objects.getExpenseType().getExpenseType()));
-		}*/
-		
+		 * ReportPrefs rp = new ReportPrefs(); List<String> list=new ArrayList<>();
+		 * list.add("Driver"); list.add("Car"); rp.setEntities(list);
+		 * System.out.println(rp.getEntities());
+		 */
+
+		/*
+		 * List<Object[]> list = repDAO.getData(); for (Object[] tuple : list) {
+		 * System.out.println(String.format("car: %d, driver: %d", (
+		 * ((Car)tuple[0]).getId(), ( tuple.get(1, Driver.class)).getId()));
+		 * 
+		 * System.out.println(String.format("%s,  %d", tuple.get(0), tuple.get(1))); }
+		 */
+
+		/*
+		 * List<Object[]> list1 = carExpenseController.getAll(); for (Object[] objects :
+		 * list1) {
+		 * System.out.println(String.format("carExpID:%d, car: %s, expenseType: %s",
+		 * objects.getId(),
+		 * objects.getCar().getModel(),objects.getExpenseType().getExpenseType())); }
+		 */
+
 		// CarExpenseTypeDTO cetDTO=new CarExpenseTypeDTO(null, "type2");
 		// cetController.saveCarExpenseType(cetDTO);
 
@@ -181,7 +200,7 @@ public class Main {
 		 * //credsController.saveCredentials(credsDTO);
 		 * userController.saveUser(user1DTO);
 		 */
-			 context.close();
+		context.close();
 	}
 
 }
