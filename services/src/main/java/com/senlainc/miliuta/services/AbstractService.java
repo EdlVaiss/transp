@@ -8,6 +8,10 @@ import com.senlainc.miliuta.dao.api.*;
 public abstract class AbstractService {
 	@Autowired
 	protected ICredentialsDAO credentialsDAO;
+	@Autowired
+	protected IUserDAO userDAO;
+	@Autowired
+	protected IAuthorityDAO authorityDAO;
 	
 	@Autowired
 	protected ICarDAO carDAO;
