@@ -4,6 +4,8 @@ package com.senlainc.miliuta.services;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.senlainc.miliuta.dao.api.*;
+import com.senlainc.miliuta.dao.api.creds.IAuthorityDAO;
+import com.senlainc.miliuta.dao.api.creds.IUserDAO;
 
 public abstract class AbstractService {
 	@Autowired

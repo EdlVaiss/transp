@@ -1,4 +1,4 @@
-package com.senlainc.miliuta.services;
+package com.senlainc.miliuta.services.creds;
 
 import java.util.List;
 
@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.senlainc.miliuta.model.creds.Authority;
-import com.senlainc.miliuta.services.api.IAuthorityService;
+import com.senlainc.miliuta.services.AbstractService;
+import com.senlainc.miliuta.services.api.creds.IAuthorityService;
 
 @Service
 public class AuthorityService extends AbstractService implements IAuthorityService<Authority> {

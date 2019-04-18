@@ -1,8 +1,9 @@
-package com.senlainc.miliuta.dao;
+package com.senlainc.miliuta.dao.creds;
 
 import org.springframework.stereotype.Repository;
 
-import com.senlainc.miliuta.dao.api.IAuthorityDAO;
+import com.senlainc.miliuta.dao.AbstractDAO;
+import com.senlainc.miliuta.dao.api.creds.IAuthorityDAO;
 import com.senlainc.miliuta.model.creds.Authority;
 
 @Repository

@@ -1,14 +1,13 @@
-package com.senlainc.miliuta.services;
+package com.senlainc.miliuta.services.creds;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.senlainc.miliuta.model.creds.User;
-import com.senlainc.miliuta.services.api.ICarService;
-import com.senlainc.miliuta.services.api.IUserService;
+import com.senlainc.miliuta.services.AbstractService;
+import com.senlainc.miliuta.services.api.creds.IUserService;
 
 @Service
 public class UserService extends AbstractService implements IUserService<User> {
