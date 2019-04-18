@@ -27,11 +27,11 @@ import com.senlainc.miliuta.model.creds.User;
 import com.senlainc.miliuta.services.AbstractService;
 import com.senlainc.miliuta.services.CarService;
 import com.senlainc.miliuta.services.DriverService;
-import com.senlainc.miliuta.services.UserService;
-import com.senlainc.miliuta.services.api.IAuthorityService;
 import com.senlainc.miliuta.services.api.ICarService;
 import com.senlainc.miliuta.services.api.IDriverService;
-import com.senlainc.miliuta.services.api.IUserService;
+import com.senlainc.miliuta.services.api.creds.IAuthorityService;
+import com.senlainc.miliuta.services.api.creds.IUserService;
+import com.senlainc.miliuta.services.creds.UserService;
 
 public class Main {
 
