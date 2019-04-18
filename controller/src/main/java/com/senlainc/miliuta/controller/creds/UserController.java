@@ -1,4 +1,4 @@
-package com.senlainc.miliuta.controller;
+package com.senlainc.miliuta.controller.creds;
 
 import java.util.List;
 
@@ -14,42 +14,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senlainc.miliuta.controller.exceptions.NoSuchItemException;
-import com.senlainc.miliuta.dto.DriverExpenseDTO;
-import com.senlainc.miliuta.services.api.IDriverExpenseService;
+import com.senlainc.miliuta.model.creds.User;
+import com.senlainc.miliuta.services.api.creds.IUserService;
 
 @RestController
-@RequestMapping("/driverExpense")
-public class DriverExpenseController {
+@RequestMapping("/creds/user")
+public class UserController {
 
-	private static final Logger logger = Logger.getLogger(DriverExpenseController.class);
-			
+	private static final Logger logger = Logger.getLogger(UserController.class);
+	
 	@Autowired
-	private IDriverExpenseService<DriverExpenseDTO> driverExpenseService;
+	private IUserService<User> userService;
 
 	@GetMapping
-	public List<DriverExpenseDTO> getDriverExpenses() {
+	public List<User> getUsers() {
 		logger.debug("List of items asked");
-		return driverExpenseService.getAll();
+		return userService.getAll();
 	}
 
 	@GetMapping("/{id}")
-	public DriverExpenseDTO getDriverExpense(@PathVariable Integer id) throws NoSuchItemException {
-		DriverExpenseDTO driverExpenseDTO = null;
+	public User getUser(@PathVariable Integer id) throws NoSuchItemException {
+		User user = null;
 		try {
 			logger.debug("Item asked with id: " + id);
-			driverExpenseDTO = driverExpenseService.getById(id);
+			user = userService.getById(id);
 		} catch (NullPointerException e) {
 			logger.info("No item found with id: " + id);
 			throw new NoSuchItemException(id);
 		}
-		return driverExpenseDTO;
+		return user;
 	}
 
 	@PostMapping
-	public boolean saveDriverExpense(@RequestBody DriverExpenseDTO driverExpenseDTO) {
+	public boolean saveUser(@RequestBody User user) {
 		try {
 			logger.debug("Trying to save item...");
-			driverExpenseService.save(driverExpenseDTO);
+			userService.save(user);
 			return true;
 		} catch (Exception e) {
 			logger.info("Failed to save new item");
@@ -58,10 +58,10 @@ public class DriverExpenseController {
 	}
 
 	@DeleteMapping("/{id}")
-	public boolean deleteDriverExpense(@PathVariable Integer id) {
+	public boolean deleteUser(@PathVariable Integer id) {
 		try {
 			logger.debug("Trying to delete item with id: " + id);
-			driverExpenseService.deleteById(id);
+			userService.deleteById(id);
 			return true;
 		} catch (Exception e) {
 			logger.info("Failed to delete item with id: " + id);
@@ -70,14 +70,15 @@ public class DriverExpenseController {
 	}
 
 	@PutMapping
-	public boolean updateDriverExpense(@RequestBody DriverExpenseDTO driverExpenseDTO) {
+	public boolean updateUser(@RequestBody User user) {
 		try {
-			logger.debug("Trying to update item with id: " + driverExpenseDTO.getId());
-			driverExpenseService.update(driverExpenseDTO);
+			logger.debug("Trying to update item with id: " + user.getId());
+			userService.update(user);
 			return true;
 		} catch (Exception e) {
-			logger.info("Failed to update item with id: " + driverExpenseDTO.getId());
+			logger.info("Failed to update item with id: " + user.getId());
 			return false;
 		}
 	}
+
 }

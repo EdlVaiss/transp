@@ -51,10 +51,10 @@ public class CarExpenseController {
 	}
 
 	@PostMapping
-	public boolean saveCarExpense(@RequestBody CarExpenseDTO CarExpenseDTO) {
+	public boolean saveCarExpense(@RequestBody CarExpenseDTO carExpenseDTO) {
 		try {
 			logger.debug("Trying to save item...");
-			carExpenseService.save(CarExpenseDTO);
+			carExpenseService.save(carExpenseDTO);
 			return true;
 		} catch (Exception e) {
 			logger.info("Failed to save new item");
@@ -75,13 +75,13 @@ public class CarExpenseController {
 	}
 
 	@PutMapping
-	public boolean updateCarExpense(@RequestBody CarExpenseDTO CarExpenseDTO) {
+	public boolean updateCarExpense(@RequestBody CarExpenseDTO carExpenseDTO) {
 		try {
-			logger.debug("Trying to update item with id: " + CarExpenseDTO.getId());
-			carExpenseService.update(CarExpenseDTO);
+			logger.debug("Trying to update item with id: " + carExpenseDTO.getId());
+			carExpenseService.update(carExpenseDTO);
 			return true;
 		} catch (Exception e) {
-			logger.info("Failed to update item with id: " + CarExpenseDTO.getId());
+			logger.info("Failed to update item with id: " + carExpenseDTO.getId());
 			return false;
 		}
 	}

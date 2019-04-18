@@ -1,4 +1,4 @@
-package com.senlainc.miliuta.dao;
+package com.senlainc.miliuta.dao.creds;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -6,7 +6,8 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import com.senlainc.miliuta.dao.api.IUserDAO;
+import com.senlainc.miliuta.dao.AbstractDAO;
+import com.senlainc.miliuta.dao.api.creds.IUserDAO;
 import com.senlainc.miliuta.model.creds.User;
 
 @Repository

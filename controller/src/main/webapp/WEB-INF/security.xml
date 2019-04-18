@@ -10,8 +10,10 @@
 	http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http auto-config="true" use-expressions="false">
-		<intercept-url pattern="/carExpense/**"
-			access="ROLE_USER" />
+	<intercept-url pattern="/**" method="DELETE" access="ROLE_ADMIN"/>
+	<intercept-url pattern="/creds/**" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/**"
+			access="ROLE_USER, ROLE_ADMIN" />
 		<logout />
 	</http>
 

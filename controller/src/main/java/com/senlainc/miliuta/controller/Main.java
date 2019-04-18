@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.senlainc.miliuta.controller.exceptions.NoSuchItemException;
 import com.senlainc.miliuta.dao.*;
+import com.senlainc.miliuta.dao.creds.UserDAO;
 import com.senlainc.miliuta.dto.*;
 
 import com.senlainc.miliuta.model.*;
@@ -27,18 +28,17 @@ import com.senlainc.miliuta.model.creds.User;
 import com.senlainc.miliuta.services.AbstractService;
 import com.senlainc.miliuta.services.CarService;
 import com.senlainc.miliuta.services.DriverService;
-import com.senlainc.miliuta.services.UserService;
-import com.senlainc.miliuta.services.api.IAuthorityService;
 import com.senlainc.miliuta.services.api.ICarService;
 import com.senlainc.miliuta.services.api.IDriverService;
-import com.senlainc.miliuta.services.api.IUserService;
+import com.senlainc.miliuta.services.api.creds.IAuthorityService;
+import com.senlainc.miliuta.services.api.creds.IUserService;
+import com.senlainc.miliuta.services.creds.UserService;
 
 public class Main {
 
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext("control-servlet.xml");
 
-		CredentialsController credsController = (CredentialsController) context.getBean("credentialsController");
 		DriverExpenseTypeController detController = (DriverExpenseTypeController) context
 				.getBean("driverExpenseTypeController");
 		CarExpenseTypeController cetController = (CarExpenseTypeController) context.getBean("carExpenseTypeController");
@@ -62,7 +62,7 @@ public class Main {
 		//Authority auth = new Authority();
 		//auth.setId(1);
 		//auth.setName("ROLE_ADMIN");
-		authService.deleteById(10);
+		//authService.deleteById(10);
 		/*Authority auth =authService.getById(8);
 		Authority auth1 =authService.getById(12);
 		Authority auth2 =authService.getById(10);
@@ -71,16 +71,16 @@ public class Main {
 		Set<Authority> authSet = new HashSet<>();
 		authSet.add(auth);
 		authSet.add(auth1);
-		authSet.add(auth2);
+		authSet.add(auth2);*/
 
-		/*User user = new User();
+		User user = new User();
 		user.setUserName("user4");
-		user.setPassword("passw");
-		user.setEnabled(true);*/
+		user.setPassword("drop");
+		user.setEnabled(true);
 		/*User user =userService.getById(16);
 		user.setAuthorities(authSet);*/
 
-		//userService.save(user);
+		userService.save(user);
 		//userService.update(user);
 		//userService.deleteById(21);
 
