@@ -4,7 +4,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.senlainc.miliuta.controller.exceptions.NoSuchItemException;
 import com.senlainc.miliuta.dao.*;
 import com.senlainc.miliuta.dao.creds.UserDAO;
+import com.senlainc.miliuta.dao.report.CarExpenseReportDAO;
 import com.senlainc.miliuta.dto.*;
 
 import com.senlainc.miliuta.model.*;
@@ -58,7 +61,13 @@ public class Main {
 		IUserService<User> userService = (IUserService<User>) context.getBean("userService");
 		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 		IAuthorityService<Authority> authService = (IAuthorityService<Authority>) context.getBean("authorityService");
-
+		
+		CarExpenseReportDAO rdao = (CarExpenseReportDAO) context.getBean("carExpenseReportDAO");
+		List<Object[]> results = rdao.getReport(Arrays.asList("CarExpense.car.brand","CarExpense.mileage"));
+		//List<Object[]> results = rdao.getReport(Arrays.asList("CarExpense.car.brand","CarExpense.mileage"));
+		for (Object[] objects : results) {
+			System.out.println(Arrays.asList(objects));
+		}
 		//Authority auth = new Authority();
 		//auth.setId(1);
 		//auth.setName("ROLE_ADMIN");
@@ -73,14 +82,14 @@ public class Main {
 		authSet.add(auth1);
 		authSet.add(auth2);*/
 
-		User user = new User();
+		/*User user = new User();
 		user.setUserName("user4");
 		user.setPassword("drop");
-		user.setEnabled(true);
+		user.setEnabled(true);*/
 		/*User user =userService.getById(16);
 		user.setAuthorities(authSet);*/
 
-		userService.save(user);
+	//	userService.save(user);
 		//userService.update(user);
 		//userService.deleteById(21);
 
