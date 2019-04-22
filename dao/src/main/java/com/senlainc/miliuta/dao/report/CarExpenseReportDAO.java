@@ -17,7 +17,9 @@ import org.hibernate.query.criteria.internal.compile.RenderingContext;
 import org.hibernate.query.criteria.internal.expression.ExpressionImpl;
 import org.springframework.stereotype.Repository;
 
+import com.senlainc.miliuta.dao.report.utils.CriteriaQueryTuner;
 import com.senlainc.miliuta.dao.report.utils.ExpressionBuilder;
+import com.senlainc.miliuta.dao.report.utils.ICriteriaQueryTuner;
 import com.senlainc.miliuta.dao.report.utils.SelectionListFactory;
 import com.senlainc.miliuta.model.CarExpense;
 
@@ -26,17 +28,14 @@ public class CarExpenseReportDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public List<Object[]> getReport(List<String> str) {
+	public List<Object[]> getReport() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
-
-		Root<CarExpense> carExpense = criteriaQuery.from(CarExpense.class);
+		ICriteriaQueryTuner<CarExpense> CQTuner = new CriteriaQueryTuner<>(criteriaBuilder, CarExpense.class);
 		
-		SelectionListFactory<CarExpense> slf = new SelectionListFactory<>(carExpense);
-		
-		criteriaQuery.multiselect(slf.getSelectionList(str));
-
-		//criteriaQuery.where(restrictions);
+		CriteriaQuery<Object[]> criteriaQuery = CQTuner
+				.tuneSelect()
+				.tuneGroupBy()
+				.getCriteriaQuery();
 
 		List<Object[]> results = entityManager.createQuery(criteriaQuery).getResultList();
 		return results;
