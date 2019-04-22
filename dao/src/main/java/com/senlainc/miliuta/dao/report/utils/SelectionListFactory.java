@@ -1,7 +1,7 @@
 package com.senlainc.miliuta.dao.report.utils;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Selection;
@@ -14,13 +14,10 @@ public class SelectionListFactory<K> {
 	}
 
 	public List<Selection<?>> getSelectionList(List<String> stringList) {
-		List<Selection<?>> slectionList = new ArrayList<>();
 		ExpressionBuilder<K> eb = new ExpressionBuilder<>(path);
 
-		for (String string : stringList) {
-			slectionList.add(eb.build(string));
-		}
-
+		List<Selection<?>> slectionList = stringList.stream().map(s -> eb.build(s)).collect(Collectors.toList());
+		
 		return slectionList;
 	}
 
