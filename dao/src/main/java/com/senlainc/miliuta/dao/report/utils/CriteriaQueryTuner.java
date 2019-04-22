@@ -8,15 +8,15 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 
 
-public class CriteriaQueryTuner<K> implements ICriteriaQueryTuner<K>{
+public class CriteriaQueryTuner<T> implements ICriteriaQueryTuner<T>{
 	private CriteriaBuilder criteriaBuilder;
 	private CriteriaQuery<Object[]> criteriaQuery;
-	private Path<K> root;
+	private Path<T> root;
 
 	//TODO for test purposes? remove after use 
 	private final List<String> str = Arrays.asList("car.brand","mileage");
 	
-	public CriteriaQueryTuner(CriteriaBuilder criteriaBuilder, Class<K> clazz) {
+	public CriteriaQueryTuner(CriteriaBuilder criteriaBuilder, Class<T> clazz) {
 		this.criteriaBuilder = criteriaBuilder;
 		criteriaQuery = criteriaBuilder.createQuery(Object[].class);
 		root = criteriaQuery.from(clazz);
@@ -28,20 +28,20 @@ public class CriteriaQueryTuner<K> implements ICriteriaQueryTuner<K>{
 	}
 
 	@Override
-	public CriteriaQueryTuner<K> tuneSelect() {
-		SelectionListFactory<K> slf = new SelectionListFactory<>(root, criteriaBuilder);
+	public CriteriaQueryTuner<T> tuneSelect() {
+		SelectionListFactory<T> slf = new SelectionListFactory<>(root, criteriaBuilder);
 		criteriaQuery.multiselect(slf.getSelectionList(str));
 		return this;
 	}
 
 	@Override
-	public CriteriaQueryTuner<K> tuneWhere() {
+	public CriteriaQueryTuner<T> tuneWhere() {
 		// TODO Auto-generated method stub
 		return this;
 	}
 
 	@Override
-	public CriteriaQueryTuner<K> tuneGroupBy() {
+	public CriteriaQueryTuner<T> tuneGroupBy() {
 		criteriaQuery.groupBy(root.get("car").get("brand"));
 		return this;
 	}

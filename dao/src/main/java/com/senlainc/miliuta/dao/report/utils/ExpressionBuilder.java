@@ -3,16 +3,16 @@ package com.senlainc.miliuta.dao.report.utils;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 
-public class ExpressionBuilder<K> {
-	private Path<K> root;
+public class ExpressionBuilder<T> {
+	private Path<T> root;
 
-	public ExpressionBuilder(Path<K> root) {
+	public ExpressionBuilder(Path<T> root) {
 		this.root = root;
 	}
 
-	public Expression<K> build(String stringPath) {
+	public Expression<T> build(String stringPath) {
 		String[] pathArr = stringPath.split("\\.");
-		Path<K> path = null;
+		Path<T> path = null;
 		
 		for (int i = 0; i < pathArr.length; i++) {
 			if (i == 0) {
