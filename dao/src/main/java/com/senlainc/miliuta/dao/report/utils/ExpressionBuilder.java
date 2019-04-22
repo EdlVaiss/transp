@@ -14,8 +14,8 @@ public class ExpressionBuilder<K> {
 		String[] pathArr = stringPath.split("\\.");
 		Path<K> path = null;
 		
-		for (int i = 1; i < pathArr.length; i++) {
-			if (i == 1) {
+		for (int i = 0; i < pathArr.length; i++) {
+			if (i == 0) {
 				path = root.get(pathArr[i]);
 			} else {
 				path = path.get(pathArr[i]);
