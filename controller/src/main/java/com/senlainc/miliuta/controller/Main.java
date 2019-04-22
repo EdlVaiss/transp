@@ -63,7 +63,7 @@ public class Main {
 		IAuthorityService<Authority> authService = (IAuthorityService<Authority>) context.getBean("authorityService");
 		
 		CarExpenseReportDAO rdao = (CarExpenseReportDAO) context.getBean("carExpenseReportDAO");
-		List<Object[]> results = rdao.getReport(Arrays.asList("CarExpense.car.brand","CarExpense.mileage"));
+		List<Object[]> results = rdao.getReport();
 		//List<Object[]> results = rdao.getReport(Arrays.asList("CarExpense.car.brand","CarExpense.mileage"));
 		for (Object[] objects : results) {
 			System.out.println(Arrays.asList(objects));
