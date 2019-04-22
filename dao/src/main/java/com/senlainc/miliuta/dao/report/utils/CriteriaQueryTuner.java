@@ -13,7 +13,7 @@ public class CriteriaQueryTuner<T> implements ICriteriaQueryTuner<T>{
 	private CriteriaQuery<Object[]> criteriaQuery;
 	private Path<T> root;
 
-	//TODO for test purposes? remove after use 
+	//TODO for test purposes, remove after use 
 	private final List<String> str = Arrays.asList("car.brand","mileage");
 	
 	public CriteriaQueryTuner(CriteriaBuilder criteriaBuilder, Class<T> clazz) {
@@ -42,6 +42,7 @@ public class CriteriaQueryTuner<T> implements ICriteriaQueryTuner<T>{
 
 	@Override
 	public CriteriaQueryTuner<T> tuneGroupBy() {
+		// TODO hardcoded method, needs to be changed
 		criteriaQuery.groupBy(root.get("car").get("brand"));
 		return this;
 	}
