@@ -22,21 +22,22 @@ import com.senlainc.miliuta.dao.report.utils.ExpressionBuilder;
 import com.senlainc.miliuta.dao.report.utils.ICriteriaQueryTuner;
 import com.senlainc.miliuta.dao.report.utils.SelectionListFactory;
 import com.senlainc.miliuta.model.CarExpense;
+import com.senlainc.miliuta.model.report.ReportPrefsTransferObject;
 
 @Repository
 public class CarExpenseReportDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public List<Object[]> getReport() {
+	public List<Object[]> getReport(ReportPrefsTransferObject prefs) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		ICriteriaQueryTuner<CarExpense> CQTuner = new CriteriaQueryTuner<>(criteriaBuilder, CarExpense.class);
+		ICriteriaQueryTuner<CarExpense> CQTuner = new CriteriaQueryTuner<>(prefs, criteriaBuilder, CarExpense.class);
 		
 		CriteriaQuery<Object[]> criteriaQuery = CQTuner
 				.tuneSelect()
 				.tuneGroupBy()
 				.getCriteriaQuery();
-
+	
 		List<Object[]> results = entityManager.createQuery(criteriaQuery).getResultList();
 		return results;
 	}
