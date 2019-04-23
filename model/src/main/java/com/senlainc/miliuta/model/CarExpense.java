@@ -53,4 +53,42 @@ public class CarExpense extends AbstractExpense implements Serializable {
 	public void setExpenseType(CarExpenseType expenseType) {
 		this.expenseType = expenseType;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((car == null) ? 0 : car.hashCode());
+		result = prime * result + ((expenseType == null) ? 0 : expenseType.hashCode());
+		result = prime * result + ((mileage == null) ? 0 : mileage.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CarExpense other = (CarExpense) obj;
+		if (car == null) {
+			if (other.car != null)
+				return false;
+		} else if (!car.equals(other.car))
+			return false;
+		if (expenseType == null) {
+			if (other.expenseType != null)
+				return false;
+		} else if (!expenseType.equals(other.expenseType))
+			return false;
+		if (mileage == null) {
+			if (other.mileage != null)
+				return false;
+		} else if (!mileage.equals(other.mileage))
+			return false;
+		return true;
+	}
 }
+

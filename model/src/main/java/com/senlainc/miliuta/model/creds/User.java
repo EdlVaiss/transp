@@ -39,7 +39,7 @@ public class User implements Serializable{
 	@JoinTable(name = "users_authorities", joinColumns = {
 			@JoinColumn(name = "user_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "authority_id") })
-	private Set<Authority> authorities = new HashSet<>(0);;
+	private Set<Authority> authorities = new HashSet<>(0);
 
 	public User() {
 	}

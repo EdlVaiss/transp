@@ -41,4 +41,35 @@ public class DriverExpense extends AbstractExpense implements Serializable {
 	public void setExpenseType(DriverExpenseType expenseType) {
 		this.expenseType = expenseType;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((driver == null) ? 0 : driver.hashCode());
+		result = prime * result + ((expenseType == null) ? 0 : expenseType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DriverExpense other = (DriverExpense) obj;
+		if (driver == null) {
+			if (other.driver != null)
+				return false;
+		} else if (!driver.equals(other.driver))
+			return false;
+		if (expenseType == null) {
+			if (other.expenseType != null)
+				return false;
+		} else if (!expenseType.equals(other.expenseType))
+			return false;
+		return true;
+	}
 }
