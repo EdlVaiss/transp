@@ -28,6 +28,7 @@ import com.senlainc.miliuta.dto.*;
 import com.senlainc.miliuta.model.*;
 import com.senlainc.miliuta.model.creds.Authority;
 import com.senlainc.miliuta.model.creds.User;
+import com.senlainc.miliuta.model.report.ReportPrefsTransferObject;
 import com.senlainc.miliuta.services.AbstractService;
 import com.senlainc.miliuta.services.CarService;
 import com.senlainc.miliuta.services.DriverService;
@@ -63,7 +64,10 @@ public class Main {
 		IAuthorityService<Authority> authService = (IAuthorityService<Authority>) context.getBean("authorityService");
 		
 		CarExpenseReportDAO rdao = (CarExpenseReportDAO) context.getBean("carExpenseReportDAO");
-		List<Object[]> results = rdao.getReport();
+		ReportPrefsTransferObject prefs = new ReportPrefsTransferObject();
+		prefs.setSelectPrefs(Arrays.asList("car.brand", "mileage"));
+		
+		List<Object[]> results = rdao.getReport(prefs);
 		//List<Object[]> results = rdao.getReport(Arrays.asList("CarExpense.car.brand","CarExpense.mileage"));
 		for (Object[] objects : results) {
 			System.out.println(Arrays.asList(objects));
