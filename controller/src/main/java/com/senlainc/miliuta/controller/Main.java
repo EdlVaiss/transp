@@ -28,7 +28,9 @@ import com.senlainc.miliuta.dto.*;
 import com.senlainc.miliuta.model.*;
 import com.senlainc.miliuta.model.creds.Authority;
 import com.senlainc.miliuta.model.creds.User;
+import com.senlainc.miliuta.model.report.Operator;
 import com.senlainc.miliuta.model.report.ReportPrefsTransferObject;
+import com.senlainc.miliuta.model.report.WherePref;
 import com.senlainc.miliuta.services.AbstractService;
 import com.senlainc.miliuta.services.CarService;
 import com.senlainc.miliuta.services.DriverService;
@@ -65,7 +67,18 @@ public class Main {
 		
 		CarExpenseReportDAO rdao = (CarExpenseReportDAO) context.getBean("carExpenseReportDAO");
 		ReportPrefsTransferObject prefs = new ReportPrefsTransferObject();
-		prefs.setSelectPrefs(Arrays.asList("car.brand", "mileage"));
+		
+		WherePref wp = new WherePref();
+		wp.setPath("cost");
+		wp.setOperator(Operator.gt);
+		wp.setParam("19");
+		
+		WherePref wp1 = new WherePref();
+		wp1.setPath("mileage");
+		wp1.setOperator(Operator.gt);
+		wp1.setParam("199000");
+		prefs.setSelectPrefs(Arrays.asList("id","car.brand", "mileage","remark"));
+		prefs.setWherePrefs(Arrays.asList(wp,wp1));
 		
 		List<Object[]> results = rdao.getReport(prefs);
 		//List<Object[]> results = rdao.getReport(Arrays.asList("CarExpense.car.brand","CarExpense.mileage"));
