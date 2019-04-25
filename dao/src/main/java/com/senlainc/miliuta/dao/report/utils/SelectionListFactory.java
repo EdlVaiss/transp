@@ -12,7 +12,7 @@ public class SelectionListFactory<T> {
 	private CriteriaBuilder criteriaBuilder;
 	private final String AGGREGATE_FIELD = "cost";
 
-	public SelectionListFactory(final Path<T> root, final CriteriaBuilder criteriaBuilder) {
+	public SelectionListFactory(Path<T> root, CriteriaBuilder criteriaBuilder) {
 		this.root = root;
 		this.criteriaBuilder = criteriaBuilder;
 	}
