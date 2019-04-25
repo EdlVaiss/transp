@@ -1,6 +1,5 @@
 package com.senlainc.miliuta.dao.report.utils;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -33,6 +32,9 @@ public class CriteriaQueryTuner<T> implements ICriteriaQueryTuner<T> {
 
 	@Override
 	public CriteriaQueryTuner<T> tuneSelect() {
+		if (prefs.getSelectPrefs() == null) {
+			return this;
+		}
 		SelectionListFactory<T> slf = new SelectionListFactory<>(root, criteriaBuilder);
 		List<Selection<?>> slectionList = slf.getSelectionList(prefs.getSelectPrefs());
 		criteriaQuery.multiselect(slectionList);
@@ -42,13 +44,11 @@ public class CriteriaQueryTuner<T> implements ICriteriaQueryTuner<T> {
 	@Override
 	public CriteriaQueryTuner<T> tuneWhere() {
 		List<WherePref> wherePrefs = prefs.getWherePrefs();
-		if (wherePrefs.size() == 0) {
+		if (wherePrefs == null || wherePrefs.size() == 0) {
 			return this;
 		}
-		WherePredicateBuilder<T> predicateBuilder = new WherePredicateBuilder<>(root);
-
-		Predicate[] wherePredicates = wherePrefs.stream().map(pred -> predicateBuilder.build(pred))
-				.toArray(size -> new Predicate[size]);
+		WherePredicateArrayFactory<T> wpaf = new WherePredicateArrayFactory<>(root, criteriaBuilder);
+		Predicate[] wherePredicates = wpaf.getWherePredicateArray(wherePrefs);
 		criteriaQuery.where(wherePredicates);
 		return this;
 	}
@@ -56,6 +56,9 @@ public class CriteriaQueryTuner<T> implements ICriteriaQueryTuner<T> {
 	@Override
 	public CriteriaQueryTuner<T> tuneGroupBy() {
 		Selection<?> selection = criteriaQuery.getSelection();
+		if (selection == null) {
+			return this;
+		}
 		if (selection.isCompoundSelection()) {
 			criteriaQuery.groupBy((Expression<?>) selection.getCompoundSelectionItems().get(0));
 		} else {
