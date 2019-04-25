@@ -8,7 +8,7 @@ public class WherePref implements Serializable {
 
 	private String path;
 	private Operator operator;
-	private Object param;
+	private String param;
 
 	public String getPath() {
 		return path;
@@ -26,11 +26,11 @@ public class WherePref implements Serializable {
 		this.operator = operator;
 	}
 
-	public Object getParam() {
+	public String getParam() {
 		return param;
 	}
 
-	public void setParam(Object param) {
+	public void setParam(String param) {
 		this.param = param;
 	}
 }
