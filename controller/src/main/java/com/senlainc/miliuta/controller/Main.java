@@ -3,6 +3,7 @@ package com.senlainc.miliuta.controller;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -66,20 +67,28 @@ public class Main {
 		IAuthorityService<Authority> authService = (IAuthorityService<Authority>) context.getBean("authorityService");
 		
 		CarExpenseReportDAO rdao = (CarExpenseReportDAO) context.getBean("carExpenseReportDAO");
-		ReportPrefsTransferObject prefs = new ReportPrefsTransferObject();
+		
+		
+	ReportPrefsTransferObject prefs = new ReportPrefsTransferObject();
 		
 		WherePref wp = new WherePref();
-		wp.setPath("cost");
-		wp.setOperator(Operator.gt);
-		wp.setParam("19");
+		wp.setPath("car.brand");
+		wp.setOperator(Operator.eq);
+		wp.setParam("Renault");
 		
 		WherePref wp1 = new WherePref();
 		wp1.setPath("mileage");
 		wp1.setOperator(Operator.gt);
 		wp1.setParam("199000");
-		prefs.setSelectPrefs(Arrays.asList("id","car.brand", "mileage","remark"));
-		prefs.setWherePrefs(Arrays.asList(wp,wp1));
+		prefs.setSelectPrefs(Arrays.asList("id","car.brand", "mileage","date","remark"));
+		//prefs.setWherePrefs(Arrays.asList(wp1));
 		
+	     LocalDate laterThanDate = LocalDate.parse("2019-02-01",
+	             DateTimeFormatter.ISO_LOCAL_DATE);
+	     LocalDate earlierThanDate = LocalDate.parse("2019-03-03",
+	             DateTimeFormatter.ISO_LOCAL_DATE);
+	    prefs.setLaterThanDate(laterThanDate);
+	    prefs.setEarlierThanDate(earlierThanDate);
 		List<Object[]> results = rdao.getReport(prefs);
 		//List<Object[]> results = rdao.getReport(Arrays.asList("CarExpense.car.brand","CarExpense.mileage"));
 		for (Object[] objects : results) {
