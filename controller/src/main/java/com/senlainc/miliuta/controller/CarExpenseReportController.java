@@ -1,5 +1,7 @@
 package com.senlainc.miliuta.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,8 +43,16 @@ public class CarExpenseReportController {
 		wp1.setOperator(Operator.gt);
 		wp1.setParam("199000");
 		prefs.setSelectPrefs(Arrays.asList("id", "car.brand", "mileage", "remark"));
-		prefs.setWherePrefs(Arrays.asList(wp, wp1));
-
+		
+		prefs.setWherePrefs(Arrays.asList(wp1));
+		
+	     LocalDate laterThanDate = LocalDate.parse("2019-02-01",
+	             DateTimeFormatter.ISO_LOCAL_DATE);
+	     LocalDate earlierThanDate = LocalDate.parse("2019-05-03",
+	             DateTimeFormatter.ISO_LOCAL_DATE);
+	    prefs.setLaterThanDate(laterThanDate);
+	    prefs.setEarlierThanDate(earlierThanDate);
+	    
 		return prefs;
 	}
 }
