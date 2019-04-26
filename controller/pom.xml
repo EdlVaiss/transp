@@ -30,6 +30,13 @@
 			<version>2.9.7</version>
 		</dependency>
 
+		<!-- Jackson Java 8 Date & Time API support -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
 		<!-- web MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
