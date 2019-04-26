@@ -32,11 +32,12 @@ public class CriteriaQueryTuner<T> implements ICriteriaQueryTuner<T> {
 
 	@Override
 	public CriteriaQueryTuner<T> tuneSelect() {
-		if (prefs.getSelectPrefs() == null) {
+		List<String> selectPrefs = prefs.getSelectPrefs();
+		if (selectPrefs == null) {
 			return this;
 		}
 		SelectionListFactory<T> slf = new SelectionListFactory<>(root, criteriaBuilder);
-		List<Selection<?>> slectionList = slf.getSelectionList(prefs.getSelectPrefs());
+		List<Selection<?>> slectionList = slf.getSelectionList(selectPrefs);
 		criteriaQuery.multiselect(slectionList);
 		return this;
 	}
