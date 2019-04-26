@@ -48,9 +48,10 @@ public class CriteriaQueryTuner<T> implements ICriteriaQueryTuner<T> {
 		if (wherePrefs == null || wherePrefs.size() == 0) {
 			return this;
 		}
-		WherePredicateArrayFactory<T> wpaf = new WherePredicateArrayFactory<>(root, criteriaBuilder);
-		Predicate[] wherePredicates = wpaf.getWherePredicateArray(wherePrefs);
-		criteriaQuery.where(wherePredicates);
+		WherePredicateListFactory<T> wpaf = new WherePredicateListFactory<>(root, criteriaBuilder);
+		List<Predicate> wherePredicates = wpaf.getWherePredicateList(wherePrefs);
+		
+		criteriaQuery.where(wherePredicates.toArray(new Predicate[wherePredicates.size()]));
 		return this;
 	}
 
