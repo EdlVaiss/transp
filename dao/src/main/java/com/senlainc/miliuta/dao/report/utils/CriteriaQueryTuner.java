@@ -1,5 +1,6 @@
 package com.senlainc.miliuta.dao.report.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -45,12 +46,19 @@ public class CriteriaQueryTuner<T> implements ICriteriaQueryTuner<T> {
 	@Override
 	public CriteriaQueryTuner<T> tuneWhere() {
 		List<WherePref> wherePrefs = prefs.getWherePrefs();
-		if (wherePrefs == null || wherePrefs.size() == 0) {
-			return this;
+		if (wherePrefs == null) {
+			wherePrefs = new ArrayList<>();
 		}
 		WherePredicateListFactory<T> wpaf = new WherePredicateListFactory<>(root, criteriaBuilder);
 		List<Predicate> wherePredicates = wpaf.getWherePredicateList(wherePrefs);
-		
+
+		DatesPredicateBuilder<T> dpb = new DatesPredicateBuilder<>(root, criteriaBuilder);
+		Predicate datesPredicate = dpb.getDatesPredicate(prefs.getLaterThanDate(), prefs.getEarlierThanDate());
+
+		if (datesPredicate != null) {
+			wherePredicates.add(datesPredicate);
+		}
+
 		criteriaQuery.where(wherePredicates.toArray(new Predicate[wherePredicates.size()]));
 		return this;
 	}
